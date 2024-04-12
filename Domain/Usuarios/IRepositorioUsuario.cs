@@ -11,8 +11,8 @@ namespace Domain.Usuarios
         Task<List<Usuario>> ListarTodos();
         Task<Usuario?> ListarPorId(UsuarioId id);
         Task<bool> VerificarExistencia(UsuarioId id);
-        void Agregar(Usuario customer);
-        void Actualizar(Usuario customer);
-        void Borrar(Usuario customer);
+        void Agregar(Usuario usuario);
+        void Actualizar(Usuario usuario);
+        void Borrar(Usuario usuario);
     }
 }
