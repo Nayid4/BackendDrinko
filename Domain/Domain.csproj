@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Carrito De Compras\" />
+    <Folder Include="Facturas\" />
+    <Folder Include="Productos\" />
+  </ItemGroup>
+
 </Project>
