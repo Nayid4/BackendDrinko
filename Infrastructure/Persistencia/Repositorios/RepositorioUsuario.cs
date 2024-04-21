@@ -16,9 +16,9 @@ namespace Infrastructure.Persistencia.Repositorios
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public void Agregar(Usuario usuario) => _context.Usuarios.Add(usuario);
+        public void Crear(Usuario usuario) => _context.Usuarios.Add(usuario);
 
-        public void Borrar(Usuario usuario) => _context.Usuarios.Remove(usuario);
+        public void Eliminar(Usuario usuario) => _context.Usuarios.Remove(usuario);
 
         public void Actualizar(Usuario usuario) => _context.Usuarios.Update(usuario);
 
