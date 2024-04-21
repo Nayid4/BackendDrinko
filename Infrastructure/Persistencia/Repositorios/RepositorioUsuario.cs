@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infractructure.Persistencia.Repositorios
+namespace Infrastructure.Persistencia.Repositorios
 {
     public class RepositorioUsuario : IRepositorioUsuario
     {

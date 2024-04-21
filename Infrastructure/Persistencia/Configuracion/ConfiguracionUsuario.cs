@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infractructure.Persistencia.Configuracion
+namespace Infrastructure.Persistencia.Configuracion
 {
     public class ConfiguracionUsuario : IEntityTypeConfiguration<Usuario>
     {

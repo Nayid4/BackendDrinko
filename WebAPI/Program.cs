@@ -1,5 +1,5 @@
 using Application.Servicios;
-using Infractructure.Servicios;
+using Infrastructure.Servicios;
 using WebAPI.Extensiones;
 
 var builder = WebApplication.CreateBuilder(args);

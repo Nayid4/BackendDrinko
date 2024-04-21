@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using Application.Datos;
 using Domain.Primitivos;
 using Domain.Usuarios;
-using Infractructure.Persistencia;
-using Infractructure.Persistencia.Repositorios;
+using Infrastructure.Persistencia;
+using Infrastructure.Persistencia.Repositorios;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infractructure.Servicios
+namespace Infrastructure.Servicios
 {
     public static class DependencyInjection
     {
