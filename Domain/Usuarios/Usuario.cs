@@ -1,6 +1,4 @@
-﻿using Namespace;
-using Namespace.ValueObjects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Usuarios
 {
-    public class Usuario
+    public sealed class Usuario
     {
         public UsuarioId Id { get; private set; }
         public string Nombre { get; private set; } = string.Empty;

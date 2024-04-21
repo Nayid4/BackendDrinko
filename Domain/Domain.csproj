@@ -7,9 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Carrito De Compras\" />
+    <Folder Include="CarritoDeCompras\" />
     <Folder Include="Facturas\" />
     <Folder Include="Productos\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.2.0" />
   </ItemGroup>
 
 </Project>
