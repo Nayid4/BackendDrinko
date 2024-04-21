@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Primitivos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Usuarios
 {
-    public sealed class Usuario
+    public sealed class Usuario : AggretateRoot
     {
         public UsuarioId Id { get; private set; }
         public string Nombre { get; private set; } = string.Empty;
