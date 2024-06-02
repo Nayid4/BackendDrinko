@@ -1,4 +1,6 @@
-﻿using Domain.Primitivos;
+﻿using Domain.CarritoDeCompras;
+using Domain.Direcciones;
+using Domain.Primitivos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,25 +9,70 @@ using System.Threading.Tasks;
 
 namespace Domain.Usuarios
 {
-    public sealed class Usuario : AggretateRoot
+    public sealed class Usuario : AggregateRoot
     {
         public UsuarioId Id { get; private set; }
         public string Nombre { get; private set; } = string.Empty;
         public string Apellido { get; private set; } = string.Empty;
         public string Correo { get; private set; } = string.Empty;
         public NumeroDeTelefono NumeroDeTelefono { get; private set; }
-        public Direccion Direccion { get; private set; }
+
+        private readonly HashSet<Direccion> _direcciones = new();
+
+        public IReadOnlyCollection<Direccion> Direcciones => _direcciones.ToList().AsReadOnly();
 
         public Usuario() { }
 
-        public Usuario(UsuarioId id, string nombre, string apellido, string correo, NumeroDeTelefono numeroDeTelefono, Direccion direccion)
+        public Usuario(UsuarioId id, string nombre, string apellido, string correo, NumeroDeTelefono numeroDeTelefono)
         {
             Id = id;
             Nombre = nombre;
             Apellido = apellido;
             Correo = correo;
             NumeroDeTelefono = numeroDeTelefono;
-            Direccion = direccion;
         }
+
+        public void AgregarDireccion(Direccion direccion)
+        {
+            if(direccion is null)
+            {
+                throw new ArgumentNullException(nameof(direccion));
+            }
+
+            _direcciones.Add(direccion);
+        }
+
+        public bool EliminarDireccion(DireccionId direccionId)
+        {
+            var direccion = _direcciones.FirstOrDefault(d => d.Id == direccionId);
+
+            if (direccion is null)
+            {
+                return false;
+            }
+
+            return _direcciones.Remove(direccion);
+        }
+
+        public bool ActualizarDireccion(Direccion direccionActualizada)
+        {
+            if (direccionActualizada is null)
+            {
+                throw new ArgumentNullException(nameof(direccionActualizada));
+            }
+
+            var direccionExistente = _direcciones.FirstOrDefault(d => d.Id == direccionActualizada.Id);
+
+            if (direccionExistente is null)
+            {
+                return false;
+            }
+
+            _direcciones.Remove(direccionExistente);
+            _direcciones.Add(direccionActualizada);
+
+            return true;
+        }
+
     }
 }

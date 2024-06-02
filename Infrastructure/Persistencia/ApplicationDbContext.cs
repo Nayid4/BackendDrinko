@@ -27,7 +27,7 @@ namespace Infrastructure.Persistencia
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            var domainEvents = ChangeTracker.Entries<AggretateRoot>()
+            var domainEvents = ChangeTracker.Entries<AggregateRoot>()
                 .Select(e => e.Entity)
                 .Where(e => e.GetDomainEvents().Any())
                 .SelectMany(e => e.GetDomainEvents());

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Primitivos
 {
-    public abstract class AggretateRoot
+    public abstract class AggregateRoot
     {
         private readonly List<DomainEvent> _domainEvent = new();
 
