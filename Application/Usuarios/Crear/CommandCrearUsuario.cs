@@ -10,12 +10,6 @@ namespace Application.Usuarios.Crear
         string Nombre,
         string Apellido,
         string Correo,
-        string NumeroDeTelefono,
-        string Pais,
-        string Linea1,
-        string Linea2,
-        string Ciudad,
-        string Estado,
-        string CodigoPostal
+        string NumeroDeTelefono
     ) : IRequest<Unit>;
 }

@@ -2,6 +2,7 @@
 using Domain.ObjetosDeValor;
 using Domain.Primitivos;
 using Domain.Usuarios;
+using Domain.Direcciones;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,15 +24,12 @@ namespace Application.Usuarios.Crear
 
         public async Task<Unit> Handle(CommandCrearUsuario request, CancellationToken cancellationToken)
         {
+
+            var usuarioId = new UsuarioId(Guid.NewGuid());
+
             if (NumeroDeTelefono.Crear(request.NumeroDeTelefono) is not NumeroDeTelefono numeroDeTelefono)
             {
                 throw new ArgumentException(nameof(numeroDeTelefono));
-            }
-
-            if (Direccion.Crear(request.Pais, request.Linea1, request.Linea2, request.Ciudad,
-                request.Estado, request.CodigoPostal) is not Direccion direccion)
-            {
-                throw new ArgumentException(nameof(direccion));
             }
 
             var usuario = new Usuario(
@@ -39,8 +37,7 @@ namespace Application.Usuarios.Crear
                 request.Nombre,
                 request.Apellido,
                 request.Correo,
-                numeroDeTelefono,
-                direccion
+                numeroDeTelefono
             );
 
             _repositorioUsuario.Crear(usuario);

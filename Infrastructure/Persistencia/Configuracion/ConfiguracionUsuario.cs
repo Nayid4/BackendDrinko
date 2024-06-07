@@ -36,27 +36,6 @@ namespace Infrastructure.Persistencia.Configuracion
                 valor => NumeroDeTelefono.Crear(valor)!)
                 .HasMaxLength(10);
 
-            builder.OwnsOne(u => u.Direccion, direccionBuilder =>
-            {
-                direccionBuilder.Property(d => d.Pais)
-                    .HasMaxLength(50);
-
-                direccionBuilder.Property(d => d.Linea1)
-                    .HasMaxLength(50);
-
-                direccionBuilder.Property(d => d.Linea2)
-                    .HasMaxLength(50)
-                    .IsRequired(false);
-
-                direccionBuilder.Property(d => d.Ciudad)
-                    .HasMaxLength(50);
-
-                direccionBuilder.Property(d => d.Estado)
-                    .HasMaxLength(50);
-
-                direccionBuilder.Property(d => d.CodigoPostal)
-                    .HasMaxLength(10);
-            });
 
         }
     }
