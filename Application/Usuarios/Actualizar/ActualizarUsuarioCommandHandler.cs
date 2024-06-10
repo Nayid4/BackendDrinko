@@ -7,7 +7,6 @@ using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Application.Usuarios.Actualizar
 {
@@ -26,17 +25,17 @@ namespace Application.Usuarios.Actualizar
         {
             if (!await _repositorioUsuario.VerificarExistencia(new UsuarioId(request.Id)))
             {
-                return Error.NotFound("Usuario.NoEcontrado", "No se encontro el usuario.");
+                return Error.NotFound("Usuario.NoEncontrado", "No se encontró el usuario.");
             }
-
 
             if (NumeroDeTelefono.Crear(request.NumeroDeTelefono) is not NumeroDeTelefono numeroDeTelefono)
             {
-                return Error.Validation("Usuaruo.NumeroDeTelefono", "Formato de numero de telefono incorrecto.");
+                return Error.Validation("Usuario.NumeroDeTelefono", "Formato de número de teléfono incorrecto.");
             }
 
-            
-            Usuario usuario = Usuario.ActualizarUsuario(request.Id, request.Nombre, request.Apellido, request.Correo, numeroDeTelefono, request.Direcciones);
+            var direcciones = request.Direcciones.Select(d => new Direccion(new DireccionId(Guid.NewGuid()), new UsuarioId(request.Id), d.Linea1, d.Linea2, d.Ciudad, d.Departamento, d.CodigoPostal)).ToHashSet();
+
+            Usuario usuario = Usuario.ActualizarUsuario(request.Id, request.Nombre, request.Apellido, request.Correo, numeroDeTelefono, direcciones, request.Rol);
             _repositorioUsuario.Actualizar(usuario);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);

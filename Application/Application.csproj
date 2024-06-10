@@ -21,12 +21,14 @@
 
   <ItemGroup>
     <Folder Include="CarritosDeCompras\" />
+    <Folder Include="Categorias\Actualizar\" />
+    <Folder Include="Categorias\Eliminar\" />
+    <Folder Include="Categorias\ListarPorId\" />
+    <Folder Include="Categorias\VerificarExistencia\" />
     <Folder Include="Pedidos\" />
-    <Folder Include="NewFolder\" />
     <Folder Include="Productos\Actualizar\" />
     <Folder Include="Productos\Eliminar\" />
     <Folder Include="Productos\ListarPorId\" />
-    <Folder Include="Productos\ListarTodos\" />
     <Folder Include="Productos\VerificarExistencia\" />
   </ItemGroup>
 

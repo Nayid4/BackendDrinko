@@ -1,8 +1,7 @@
-﻿using Domain.Productos;
+﻿using Microsoft.EntityFrameworkCore;
+using Domain.Productos;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Persistencia.Repositorios
@@ -16,31 +15,16 @@ namespace Infrastructure.Persistencia.Repositorios
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public void Actualizar(Producto producto)
-        {
-            throw new NotImplementedException();
-        }
+        public void Crear(Producto producto) => _context.Productos.Add(producto);
 
-        public async void Crear(Producto producto) => _context.Productos.Add(producto);
+        public void Eliminar(Producto producto) => _context.Productos.Remove(producto);
 
-        public void Eliminar(Producto producto)
-        {
-            throw new NotImplementedException();
-        }
+        public void Actualizar(Producto producto) => _context.Productos.Update(producto);
 
-        public Task<Producto?> ListarPorId(ProductoId id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<bool> VerificarExistencia(ProductoId id) => await _context.Productos.AnyAsync(p => p.Id == id);
 
-        public Task<List<Producto>> ListarTodos()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<Producto?> ListarPorId(ProductoId id) => await _context.Productos.SingleOrDefaultAsync(p => p.Id == id);
 
-        public Task<bool> VerificarExistencia(ProductoId id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<List<Producto>> ListarTodos() => await _context.Productos.ToListAsync();
     }
 }

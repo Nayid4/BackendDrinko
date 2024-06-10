@@ -1,4 +1,5 @@
-﻿using Domain.Direcciones;
+﻿using Application.Usuarios.Common;
+using Domain.Direcciones;
 using Domain.ObjetosDeValor;
 using Domain.Usuarios;
 using MediatR;
@@ -11,5 +12,7 @@ namespace Application.Usuarios.Crear
         string Apellido,
         string Correo,
         string NumeroDeTelefono,
-        HashSet<Direccion> Direcciones) : IRequest<UsuarioId>;
+        RolUsuario Rol,
+        List<DireccionCommand> Direcciones
+    ) : IRequest<ErrorOr<Unit>>;
 }

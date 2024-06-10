@@ -1,10 +1,12 @@
 ﻿using Application.Usuarios.Common;
 using Domain.Primitivos;
 using Domain.Usuarios;
+using ErrorOr;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Application.Usuarios.ListarTodos
@@ -22,22 +24,24 @@ namespace Application.Usuarios.ListarTodos
 
         public async Task<ErrorOr<IReadOnlyList<UsuarioResponse>>> Handle(ListarTodosLosUsuariosQuery request, CancellationToken cancellationToken)
         {
-            IReadOnlyList<Usuario> usuarios = await _repositorioUsuario.ListarTodos();
+            var usuarios = await _repositorioUsuario.ListarTodos();
 
-            return usuarios.Select(usuario => new UsuarioResponse(
-                    usuario.Id.Valor,
-                    usuario.Nombre,
-                    usuario.Apellido,
-                    usuario.Correo,
-                    usuario.NumeroDeTelefono.Valor,
-                    usuario.Direcciones.Select(direccion => new DireccionResponse(
-                        direccion.Id.Valor,
-                        direccion.Linea1,
-                        direccion.Linea2,
-                        direccion.Ciudad,
-                        direccion.Departamento,
-                        direccion.CodigoPostal)).ToList())
-                    ).ToList();
+            var usuariosResponse = usuarios.Select(usuario => new UsuarioResponse(
+                usuario.Id.Valor,
+                usuario.Nombre,
+                usuario.Apellido,
+                usuario.Correo,
+                usuario.NumeroDeTelefono.Valor,
+                usuario.Rol,
+                usuario.Direcciones.Select(d => new DireccionResponse(
+                    d.Id.Valor,
+                    d.Linea1,
+                    d.Linea2,
+                    d.Ciudad,
+                    d.Departamento,
+                    d.CodigoPostal)).ToList())).ToList();
+
+            return usuariosResponse;
         }
     }
 }

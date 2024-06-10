@@ -1,13 +1,12 @@
 ﻿using Application.Usuarios.Common;
-using Application.Usuarios.ListarTodos;
 using Domain.Primitivos;
 using Domain.Usuarios;
+using ErrorOr;
+using MediatR;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Application.Usuarios.ListarPorId
 {
@@ -22,27 +21,32 @@ namespace Application.Usuarios.ListarPorId
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        
         public async Task<ErrorOr<UsuarioResponse>> Handle(ListarUsuariosPorIdQuery request, CancellationToken cancellationToken)
         {
-            if (await _repositorioUsuario.ListarPorId(new UsuarioId(request.Id)) is not Usuario usuario)
+            var usuario = await _repositorioUsuario.ListarPorId(new UsuarioId(request.Id));
+            if (usuario is null)
             {
                 return Error.NotFound("Usuario.NoEncontrado", "No se encontró el usuario.");
             }
 
-            return new UsuarioResponse(
-                    usuario.Id.Valor,
-                    usuario.Nombre,
-                    usuario.Apellido,
-                    usuario.Correo,
-                    usuario.NumeroDeTelefono.Valor,
-                    usuario.Direcciones.Select(direccion => new DireccionResponse(
-                        direccion.Id.Valor,
-                        direccion.Linea1,
-                        direccion.Linea2,
-                        direccion.Ciudad,
-                        direccion.Departamento,
-                        direccion.CodigoPostal)).ToList());
+            var direcciones = usuario.Direcciones.Select(d => new DireccionResponse(
+                d.Id.Valor,
+                d.Linea1,
+                d.Linea2,
+                d.Ciudad,
+                d.Departamento,
+                d.CodigoPostal)).ToList();
+
+            var usuarioResponse = new UsuarioResponse(
+                usuario.Id.Valor,
+                usuario.Nombre,
+                usuario.Apellido,
+                usuario.Correo,
+                usuario.NumeroDeTelefono.Valor,
+                usuario.Rol,
+                direcciones);
+
+            return usuarioResponse;
         }
     }
 }

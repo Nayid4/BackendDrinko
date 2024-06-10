@@ -4,7 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Datos;
+using Domain.CarritoDeCompras;
+using Domain.Categoria;
+using Domain.Direcciones;
+using Domain.Pedidos;
 using Domain.Primitivos;
+using Domain.Productos;
 using Domain.Usuarios;
 using Infrastructure.Persistencia;
 using Infrastructure.Persistencia.Repositorios;
@@ -32,6 +37,12 @@ namespace Infrastructure.Servicios
                 sp.GetRequiredService<ApplicationDbContext>());
 
             services.AddScoped<IRepositorioUsuario, RepositorioUsuario>();
+            services.AddScoped<IRepositorioProducto, RepositorioProducto>();
+            services.AddScoped<IRepositorioPedido, RepositorioPedido>();
+            services.AddScoped<IRepositorioDireccion, RepositorioDireccion>();
+            services.AddScoped<IRepositorioCarritoDeCompras, RepositorioDeCarritoDeCompras>();
+            services.AddScoped<IRepositorioCategoria, RepositorioCategoria>();
+            services.AddScoped<IRepositorioProductoCarrito, RepositorioProductoCarrito>();
 
             return services;
         }

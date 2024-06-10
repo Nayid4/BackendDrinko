@@ -15,6 +15,5 @@ namespace Domain.CarritoDeCompras
         void Crear(CarritoDeCompras carritoDeCompras);
         void Actualizar(CarritoDeCompras carritoDeCompras);
         void Eliminar(CarritoDeCompras carritoDeCompras);
-        void VaciarCarrito(CarritoDeCompras carritoDeCompras);
     }
 }

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Usuarios
 {
+
     public sealed class Usuario : AggregateRoot
     {
         private readonly HashSet<Direccion> _direcciones = new();
@@ -19,12 +20,12 @@ namespace Domain.Usuarios
         public string Apellido { get; private set; } = string.Empty;
         public string Correo { get; private set; } = string.Empty;
         public NumeroDeTelefono NumeroDeTelefono { get; private set; }
-        public IReadOnlyList<Direccion> Direcciones => _direcciones.ToList();
+        public ICollection<Direccion> Direcciones => _direcciones;
+        public RolUsuario Rol { get; private set; } // Nuevo campo para el rol del usuario
 
-        
         public Usuario() { }
 
-        public Usuario(UsuarioId id, string nombre, string apellido, string correo, NumeroDeTelefono numeroDeTelefono, HashSet<Direccion> direcciones)
+        public Usuario(UsuarioId id, string nombre, string apellido, string correo, NumeroDeTelefono numeroDeTelefono, HashSet<Direccion> direcciones, RolUsuario rol)
         {
             Id = id;
             Nombre = nombre;
@@ -32,16 +33,17 @@ namespace Domain.Usuarios
             Correo = correo;
             NumeroDeTelefono = numeroDeTelefono;
             _direcciones = direcciones;
+            Rol = rol;
         }
 
-        public static Usuario ActualizarUsuario(Guid id, string nombre, string apellido, string correo, NumeroDeTelefono numeroDeTelefono, HashSet<Direccion> direcciones)
+        public static Usuario ActualizarUsuario(Guid id, string nombre, string apellido, string correo, NumeroDeTelefono numeroDeTelefono, HashSet<Direccion> direcciones, RolUsuario rol)
         {
-            return new Usuario(new UsuarioId(id), nombre, apellido, correo, numeroDeTelefono, direcciones);
+            return new Usuario(new UsuarioId(id), nombre, apellido, correo, numeroDeTelefono, direcciones, rol);
         }
 
         public void AgregarDireccion(Direccion direccion)
         {
-            if(direccion is null)
+            if (direccion is null)
             {
                 throw new ArgumentNullException(nameof(direccion));
             }
@@ -80,6 +82,5 @@ namespace Domain.Usuarios
 
             return true;
         }
-
     }
 }

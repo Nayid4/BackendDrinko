@@ -21,7 +21,7 @@ namespace Infrastructure.Persistencia
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Direccion> Direcciones { get; set; }
         public DbSet<CarritoDeCompras> CarritosDeCompras { get; set; }
-        public DbSet<ProductoCarrito> productoCarritos { get; set; }
+        public DbSet<ProductoCarrito> ProductoCarritos { get; set; }
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<ProductoPedido> ProductosPedido { get; set; }
 

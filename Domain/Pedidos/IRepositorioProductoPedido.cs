@@ -9,8 +9,8 @@ namespace Domain.Pedidos
     public interface IRepositorioProductoPedido
     {
         Task<List<ProductoPedido>> ListarTodos();
-        Task<ProductoPedido?> ListarPorId(ProductoPedido id);
-        Task<bool> VerificarExistencia(ProductoPedido id);
+        Task<ProductoPedido?> ListarPorId(ProductoPedidoId id);
+        Task<bool> VerificarExistencia(ProductoPedidoId id);
         void Crear(ProductoPedido ProductoPedido);
         void Actualizar(ProductoPedido ProductoPedido);
         void Eliminar(ProductoPedido ProductoPedido);
