@@ -1,10 +1,15 @@
 ﻿using Application.Datos;
+using Domain.CarritoDeCompras;
+using Domain.Categoria;
+using Domain.Direcciones;
+using Domain.Pedidos;
 using Domain.Primitivos;
+using Domain.Productos;
 using Domain.Usuarios;
+using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Persistencia
@@ -12,6 +17,13 @@ namespace Infrastructure.Persistencia
     public class ApplicationDbContext : DbContext, IApplicationDbContext, IUnitOfWork
     {
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Producto> Productos { get; set; }
+        public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<Direccion> Direcciones { get; set; }
+        public DbSet<CarritoDeCompras> CarritosDeCompras { get; set; }
+        public DbSet<ProductoCarrito> productoCarritos { get; set; }
+        public DbSet<Pedido> Pedidos { get; set; }
+        public DbSet<ProductoPedido> ProductosPedido { get; set; }
 
         private readonly IPublisher _publisher;
 
@@ -22,6 +34,7 @@ namespace Infrastructure.Persistencia
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
         }
 
@@ -41,6 +54,5 @@ namespace Infrastructure.Persistencia
 
             return result;
         }
-
     }
 }

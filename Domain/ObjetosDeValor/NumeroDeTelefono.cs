@@ -9,7 +9,7 @@ namespace Domain.ObjetosDeValor
 
         public static NumeroDeTelefono? Crear(string valor)
         {
-            if (string.IsNullOrEmpty(valor) /*|| !PhoneNumberRegex().IsMatch(valor)*/ || valor.Length != tamano)
+            if (string.IsNullOrEmpty(valor) || !PhoneNumberRegex().IsMatch(valor) || valor.Length != tamano)
             {
                 return null;
             }
@@ -18,8 +18,8 @@ namespace Domain.ObjetosDeValor
 
         public string Valor { get; init; }
 
-        /*[GeneratedRegex(filtro)]
-        private static partial Regex PhoneNumberRegex();*/
+        [GeneratedRegex(filtro)]
+        private static partial Regex PhoneNumberRegex();
     }
 }
 

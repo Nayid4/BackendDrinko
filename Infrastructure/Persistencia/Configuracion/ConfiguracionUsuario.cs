@@ -20,12 +20,15 @@ namespace Infrastructure.Persistencia.Configuracion
                 valor => new UsuarioId(valor));
 
             builder.Property(u => u.Nombre)
+                .IsRequired()
                 .HasMaxLength(100);
 
             builder.Property(u => u.Apellido)
+                .IsRequired()
                 .HasMaxLength(100);
 
             builder.Property(u => u.Correo)
+                .IsRequired()
                 .HasMaxLength(255);
 
             builder.HasIndex(u => u.Correo)
@@ -34,8 +37,14 @@ namespace Infrastructure.Persistencia.Configuracion
             builder.Property(u => u.NumeroDeTelefono).HasConversion(
                 numeroDeTelefono => numeroDeTelefono.Valor,
                 valor => NumeroDeTelefono.Crear(valor)!)
+                .IsRequired()
                 .HasMaxLength(10);
 
+            // Relación uno a muchos con Direccion
+            builder.HasMany(u => u.Direcciones)
+                .WithOne()
+                .HasForeignKey(d => d.UsuarioId)
+                .OnDelete(DeleteBehavior.Cascade);
 
         }
     }

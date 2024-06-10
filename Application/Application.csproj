@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -20,11 +20,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Usuarios\Eliminar\" />
-    <Folder Include="Usuarios\Actualizar\" />
-    <Folder Include="Usuarios\ListarPorId\" />
-    <Folder Include="Usuarios\ListarTodos\" />
-    <Folder Include="Usuarios\VerificarExistencia\" />
+    <Folder Include="CarritosDeCompras\" />
+    <Folder Include="Pedidos\" />
+    <Folder Include="NewFolder\" />
+    <Folder Include="Productos\Actualizar\" />
+    <Folder Include="Productos\Eliminar\" />
+    <Folder Include="Productos\ListarPorId\" />
+    <Folder Include="Productos\ListarTodos\" />
+    <Folder Include="Productos\VerificarExistencia\" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,8 @@
 ﻿using Domain.Usuarios;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Persistencia.Repositorios
@@ -24,9 +24,12 @@ namespace Infrastructure.Persistencia.Repositorios
 
         public async Task<bool> VerificarExistencia(UsuarioId id) => await _context.Usuarios.AnyAsync(usuario => usuario.Id == id);
 
-        public async Task<Usuario?> ListarPorId(UsuarioId id) => await _context.Usuarios.SingleOrDefaultAsync(usuario => usuario.Id == id);
+        public async Task<Usuario?> ListarPorId(UsuarioId id) => await _context.Usuarios
+            .Include(u => u.Direcciones)
+            .SingleOrDefaultAsync(usuario => usuario.Id == id);
 
-        public async Task<List<Usuario>> ListarTodos() => await _context.Usuarios.ToListAsync();
-
+        public async Task<List<Usuario>> ListarTodos() => await _context.Usuarios
+            .Include(u => u.Direcciones)
+            .ToListAsync();
     }
 }

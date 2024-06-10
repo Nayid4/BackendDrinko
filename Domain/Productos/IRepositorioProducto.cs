@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Productos
 {
-    public interface IRepositorioProduto
+    public interface IRepositorioProducto
     {
         Task<List<Producto>> ListarTodos();
         Task<Producto?> ListarPorId(ProductoId id);
