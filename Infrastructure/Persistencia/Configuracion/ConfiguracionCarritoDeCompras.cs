@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistencia.Configuracion
 {
-    public class ConfiguracionCarritoDeCompras : IEntityTypeConfiguration<CarritoDeCompras>
+    public class ConfiguracionCarritoDeCompras : IEntityTypeConfiguration<CarritoDeCompra>
     {
-        public void Configure(EntityTypeBuilder<CarritoDeCompras> builder)
+        public void Configure(EntityTypeBuilder<CarritoDeCompra> builder)
         {
             builder.HasKey(c => c.Id);
 

@@ -1,11 +1,11 @@
-﻿using Domain.Primitivos;
-using MediatR;
+﻿using MediatR;
+using ErrorOr;
+using Application.Categorias.Common;
 using System;
-using System.Collections.Generic;
 
 namespace Application.Categorias.Crear
 {
     public record CrearCategoriaCommand(
         string Nombre
-        ) : IRequest<ErrorOr<Unit>>;
+    ) : IRequest<ErrorOr<CategoriaResponse>>;
 }

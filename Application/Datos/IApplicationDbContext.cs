@@ -1,4 +1,5 @@
-﻿using Domain.CarritoDeCompras;
+﻿
+using Domain.CarritoDeCompras;
 using Domain.Categoria;
 using Domain.Direcciones;
 using Domain.Pedidos;
@@ -18,7 +19,7 @@ namespace Application.Datos
         public DbSet<Producto> Productos { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Direccion> Direcciones { get; set; }
-        public DbSet<CarritoDeCompras> CarritosDeCompras { get; set; }
+        public DbSet<CarritoDeCompra> CarritosDeCompras { get; set; }
         public DbSet<ProductoCarrito> ProductoCarritos { get; set; }
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<ProductoPedido> ProductosPedido { get; set; }

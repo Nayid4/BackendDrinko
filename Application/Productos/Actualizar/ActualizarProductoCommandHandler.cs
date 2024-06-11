@@ -1,28 +1,32 @@
-﻿using Domain.Categoria;
-using Domain.Primitivos;
+﻿using MediatR;
+using ErrorOr;
+using Domain.Categoria;
 using Domain.Productos;
-using MediatR;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Domain.Primitivos;
 
-namespace Application.Productos.Crear
+namespace Application.Productos.Actualizar
 {
-    internal sealed class CrearProductoCommandHandler : IRequestHandler<CrearProductoCommand, ErrorOr<Unit>>
+    internal sealed class ActualizarProductoCommandHandler : IRequestHandler<ActualizarProductoCommand, ErrorOr<Unit>>
     {
         private readonly IRepositorioProducto _repositorioProducto;
         private readonly IRepositorioCategoria _repositorioCategoria;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CrearProductoCommandHandler(IRepositorioProducto repositorioProducto, IRepositorioCategoria repositorioCategoria, IUnitOfWork unitOfWork)
+        public ActualizarProductoCommandHandler(IRepositorioProducto repositorioProducto, IRepositorioCategoria repositorioCategoria,  IUnitOfWork unitOfWork)
         {
             _repositorioProducto = repositorioProducto ?? throw new ArgumentNullException(nameof(repositorioProducto));
             _repositorioCategoria = repositorioCategoria ?? throw new ArgumentNullException(nameof(repositorioCategoria));
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        public async Task<ErrorOr<Unit>> Handle(CrearProductoCommand request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<Unit>> Handle(ActualizarProductoCommand request, CancellationToken cancellationToken)
         {
+            if (!await _repositorioProducto.VerificarExistencia(new ProductoId(request.Id)))
+            {
+                return Error.NotFound("Producto.NoEncontrado", "No se encontró el producto.");
+            }
 
             if (!await _repositorioCategoria.VerificarExistencia(new CategoriaId(request.CategoriaId)))
             {
@@ -30,7 +34,7 @@ namespace Application.Productos.Crear
             }
 
             var producto = new Producto(
-                new ProductoId(Guid.NewGuid()),
+                new ProductoId(request.Id),
                 request.Nombre,
                 new CategoriaId(request.CategoriaId),
                 request.Imagen,
@@ -41,7 +45,7 @@ namespace Application.Productos.Crear
                 request.Precio
             );
 
-            _repositorioProducto.Crear(producto);
+            _repositorioProducto.Actualizar(producto);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;

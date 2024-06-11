@@ -1,4 +1,5 @@
 ﻿using Domain.Categoria;
+using Domain.Usuarios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,12 @@ namespace Domain.CarritoDeCompras
 {
     public interface IRepositorioCarritoDeCompras
     {
-        Task<List<CarritoDeCompras>> ListarTodos();
-        Task<CarritoDeCompras?> ListarPorId(CarritoDeComprasId id);
+        Task<List<CarritoDeCompra>> ListarTodos();
+        Task<CarritoDeCompra?> ListarPorId(CarritoDeComprasId id);
+        Task<CarritoDeCompra?> ListarPorIdDeUsuario(UsuarioId id);
         Task<bool> VerificarExistencia(CarritoDeComprasId id);
-        void Crear(CarritoDeCompras carritoDeCompras);
-        void Actualizar(CarritoDeCompras carritoDeCompras);
-        void Eliminar(CarritoDeCompras carritoDeCompras);
+        void Crear(CarritoDeCompra carritoDeCompras);
+        void Actualizar(CarritoDeCompra carritoDeCompras);
+        void Eliminar(CarritoDeCompra carritoDeCompras);
     }
 }

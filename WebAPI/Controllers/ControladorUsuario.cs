@@ -4,10 +4,12 @@ using Application.Usuarios.Eliminar;
 using Application.Usuarios.ListarPorId;
 using Application.Usuarios.ListarTodos;
 using Application.Usuarios.VerificarExistencia;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers
 {
     [Route("usuarios")]
+    //[Authorize]
     public class ControladorUsuario : ApiController
     {
         private readonly ISender _mediator;

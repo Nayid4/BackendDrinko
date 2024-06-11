@@ -23,6 +23,14 @@ namespace Domain.CarritoDeCompras
             Cantidad = cantidad > 0 ? cantidad : throw new ArgumentOutOfRangeException(nameof(cantidad));
             Precio = precio >= 0 ? precio : throw new ArgumentOutOfRangeException(nameof(precio));
         }
+
+        public void ActualizarCantidad(int nuevaCantidad)
+        {
+            if (nuevaCantidad <= 0)
+                throw new ArgumentOutOfRangeException(nameof(nuevaCantidad), "La nueva cantidad debe ser mayor que cero.");
+
+            Cantidad = nuevaCantidad;
+        }
     }
 
 }
