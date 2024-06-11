@@ -14,5 +14,8 @@ namespace Domain.Usuarios
         void Crear(Usuario usuario);
         void Actualizar(Usuario usuario);
         void Eliminar(Usuario usuario);
+        Task<Usuario?> ObtenerPorCorreoYClave(string correo, string claveEncriptada);
+
+
     }
 }

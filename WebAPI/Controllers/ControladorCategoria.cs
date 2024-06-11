@@ -2,10 +2,12 @@
 using Application.Categorias.Crear;
 using Application.Productos.Crear;
 using Application.Productos.ListarTodos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers
 {
     [Route("categorias")]
+    [Authorize]
     public class ControladorCategoria : ApiController
     {
         private readonly ISender _mediator;

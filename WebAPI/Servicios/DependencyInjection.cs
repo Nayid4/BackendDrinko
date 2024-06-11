@@ -1,4 +1,7 @@
-﻿using WebAPI.Middlewares;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using WebAPI.Middlewares;
 
 namespace WebAPI.Servicios
 {
@@ -10,6 +13,15 @@ namespace WebAPI.Servicios
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
             services.AddTransient<GlobalExceptionHandlingMiddleware>();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("NewPolicy", app =>
+                {
+                    app.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
+            
+            
 
             return services;
         }

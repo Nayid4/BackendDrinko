@@ -1,4 +1,5 @@
-﻿using Domain.Direcciones;
+﻿using Application.Custom;
+using Domain.Direcciones;
 using Domain.ObjetosDeValor;
 using Domain.Primitivos;
 using Domain.Usuarios;
@@ -15,11 +16,13 @@ namespace Application.Usuarios.Crear
     {
         private readonly IRepositorioUsuario _repositorioUsuario;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly Utilidades _utilidades;
 
-        public CrearUsuarioCommandHandler(IRepositorioUsuario repositorioUsuario, IUnitOfWork unitOfWork)
+        public CrearUsuarioCommandHandler(IRepositorioUsuario repositorioUsuario, IUnitOfWork unitOfWork, Utilidades utilidades)
         {
             _repositorioUsuario = repositorioUsuario ?? throw new ArgumentNullException(nameof(repositorioUsuario));
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            _utilidades = utilidades ?? throw new ArgumentNullException(nameof(utilidades));
         }
 
         public async Task<ErrorOr<Unit>> Handle(CrearUsuarioCommand request, CancellationToken cancellationToken)
@@ -49,6 +52,7 @@ namespace Application.Usuarios.Crear
                 request.Nombre,
                 request.Apellido,
                 request.Correo,
+                _utilidades.encriptarSHA256(request.Clave),
                 numeroDeTelefono,
                 direcciones.ToHashSet(), // Convertir la lista de direcciones a un HashSet
                 request.Rol

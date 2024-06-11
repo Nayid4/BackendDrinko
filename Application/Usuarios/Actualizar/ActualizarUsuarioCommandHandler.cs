@@ -35,7 +35,7 @@ namespace Application.Usuarios.Actualizar
 
             var direcciones = request.Direcciones.Select(d => new Direccion(new DireccionId(Guid.NewGuid()), new UsuarioId(request.Id), d.Linea1, d.Linea2, d.Ciudad, d.Departamento, d.CodigoPostal)).ToHashSet();
 
-            Usuario usuario = Usuario.ActualizarUsuario(request.Id, request.Nombre, request.Apellido, request.Correo, numeroDeTelefono, direcciones, request.Rol);
+            Usuario usuario = Usuario.ActualizarUsuario(request.Id, request.Nombre, request.Apellido, request.Correo, request.Clave, numeroDeTelefono, direcciones, request.Rol);
             _repositorioUsuario.Actualizar(usuario);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);

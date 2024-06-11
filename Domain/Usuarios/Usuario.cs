@@ -19,26 +19,28 @@ namespace Domain.Usuarios
         public string Nombre { get; private set; } = string.Empty;
         public string Apellido { get; private set; } = string.Empty;
         public string Correo { get; private set; } = string.Empty;
+        public string Clave { get; set; } = string.Empty;
         public NumeroDeTelefono NumeroDeTelefono { get; private set; }
         public ICollection<Direccion> Direcciones => _direcciones;
         public RolUsuario Rol { get; private set; } // Nuevo campo para el rol del usuario
 
         public Usuario() { }
 
-        public Usuario(UsuarioId id, string nombre, string apellido, string correo, NumeroDeTelefono numeroDeTelefono, HashSet<Direccion> direcciones, RolUsuario rol)
+        public Usuario(UsuarioId id, string nombre, string apellido, string correo, string clave, NumeroDeTelefono numeroDeTelefono, HashSet<Direccion> direcciones, RolUsuario rol)
         {
             Id = id;
             Nombre = nombre;
             Apellido = apellido;
             Correo = correo;
             NumeroDeTelefono = numeroDeTelefono;
+            Clave = clave;
             _direcciones = direcciones;
             Rol = rol;
         }
 
-        public static Usuario ActualizarUsuario(Guid id, string nombre, string apellido, string correo, NumeroDeTelefono numeroDeTelefono, HashSet<Direccion> direcciones, RolUsuario rol)
+        public static Usuario ActualizarUsuario(Guid id, string nombre, string apellido, string correo, string clave, NumeroDeTelefono numeroDeTelefono, HashSet<Direccion> direcciones, RolUsuario rol)
         {
-            return new Usuario(new UsuarioId(id), nombre, apellido, correo, numeroDeTelefono, direcciones, rol);
+            return new Usuario(new UsuarioId(id), nombre, apellido, correo, clave, numeroDeTelefono, direcciones, rol);
         }
 
         public void AgregarDireccion(Direccion direccion)

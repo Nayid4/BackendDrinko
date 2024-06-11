@@ -31,6 +31,7 @@ namespace Application.Usuarios.ListarTodos
                 usuario.Nombre,
                 usuario.Apellido,
                 usuario.Correo,
+                usuario.Clave,
                 usuario.NumeroDeTelefono.Valor,
                 usuario.Rol,
                 usuario.Direcciones.Select(d => new DireccionResponse(

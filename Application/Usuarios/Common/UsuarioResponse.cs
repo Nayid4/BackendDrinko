@@ -10,6 +10,7 @@ namespace Application.Usuarios.Common
         string Nombre,
         string Apellido,
         string Correo,
+        string clave,
         string NumeroDeTelefono,
         RolUsuario Rol, // Agregar el campo Rol
         IReadOnlyList<DireccionResponse> Direcciones);

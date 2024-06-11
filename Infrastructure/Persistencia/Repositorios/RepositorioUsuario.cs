@@ -31,5 +31,12 @@ namespace Infrastructure.Persistencia.Repositorios
         public async Task<List<Usuario>> ListarTodos() => await _context.Usuarios
             .Include(u => u.Direcciones)
             .ToListAsync();
+
+        public async Task<Usuario?> ObtenerPorCorreoYClave(string correo, string claveEncriptada)
+        {
+            return await _context.Usuarios
+                .Include(u => u.Direcciones)
+                .FirstOrDefaultAsync(usuario => usuario.Correo == correo && usuario.Clave == claveEncriptada);
+        }
     }
 }

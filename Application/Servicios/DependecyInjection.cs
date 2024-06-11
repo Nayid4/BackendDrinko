@@ -1,4 +1,6 @@
-﻿using Application.Common.Behavios;
+﻿
+using Application.Common.Behavios;
+using Application.Custom;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -23,6 +25,7 @@ namespace Application.Servicios
             );
 
             services.AddValidatorsFromAssemblyContaining<ApplicationAssemblyReference>();
+            services.AddSingleton<Utilidades>();
 
             return services;
         }

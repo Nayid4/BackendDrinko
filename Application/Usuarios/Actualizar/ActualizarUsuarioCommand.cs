@@ -11,6 +11,7 @@ namespace Application.Usuarios.Actualizar
         string Nombre,
         string Apellido,
         string Correo,
+        string Clave,
         string NumeroDeTelefono,
         RolUsuario Rol, // Agregar el campo Rol
         HashSet<Direccion> Direcciones) : IRequest<ErrorOr<Unit>>;

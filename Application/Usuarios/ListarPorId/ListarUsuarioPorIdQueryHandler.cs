@@ -42,6 +42,7 @@ namespace Application.Usuarios.ListarPorId
                 usuario.Nombre,
                 usuario.Apellido,
                 usuario.Correo,
+                usuario.Clave,
                 usuario.NumeroDeTelefono.Valor,
                 usuario.Rol,
                 direcciones);
