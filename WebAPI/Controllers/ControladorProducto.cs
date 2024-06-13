@@ -2,6 +2,7 @@
 using Application.Productos.Crear;
 using Application.Productos.Eliminar;
 using Application.Productos.ListarPorId;
+using Application.Productos.ListarPorIdDeCategoria;
 using Application.Productos.ListarTodos;
 using Application.Productos.VerificarExistencia;
 using Application.Usuarios.Crear;
@@ -26,6 +27,17 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> ListarTodos()
         {
             var resultado = await _mediator.Send(new ListarTodosLosProductosQuery());
+
+            return resultado.Match(
+                productos => Ok(productos),
+                errors => Problem(errors)
+            );
+        }
+
+        [HttpGet("listar-por-categoria/{id}")]
+        public async Task<IActionResult> ListarProductoPorCategoria(Guid id)
+        {
+            var resultado = await _mediator.Send(new ListarProductoPorIdDeCategoriaQuery(id));
 
             return resultado.Match(
                 productos => Ok(productos),
