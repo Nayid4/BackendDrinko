@@ -1,4 +1,5 @@
 ﻿using Application.Custom;
+using Domain.CarritoDeCompras;
 using Domain.Direcciones;
 using Domain.ObjetosDeValor;
 using Domain.Primitivos;
@@ -15,12 +16,14 @@ namespace Application.Usuarios.Crear
     internal sealed class CrearUsuarioCommandHandler : IRequestHandler<CrearUsuarioCommand, ErrorOr<Unit>>
     {
         private readonly IRepositorioUsuario _repositorioUsuario;
+        private readonly IRepositorioCarritoDeCompras _repositorioCarrito;
         private readonly IUnitOfWork _unitOfWork;
         private readonly Utilidades _utilidades;
 
-        public CrearUsuarioCommandHandler(IRepositorioUsuario repositorioUsuario, IUnitOfWork unitOfWork, Utilidades utilidades)
+        public CrearUsuarioCommandHandler(IRepositorioUsuario repositorioUsuario, IRepositorioCarritoDeCompras repositorioCarrito, IUnitOfWork unitOfWork, Utilidades utilidades)
         {
             _repositorioUsuario = repositorioUsuario ?? throw new ArgumentNullException(nameof(repositorioUsuario));
+            _repositorioCarrito = repositorioCarrito ?? throw new ArgumentNullException(nameof(repositorioCarrito));
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _utilidades = utilidades ?? throw new ArgumentNullException(nameof(utilidades));
         }
@@ -59,7 +62,12 @@ namespace Application.Usuarios.Crear
             );
 
             _repositorioUsuario.Crear(usuario);
+
+            var carrito = CarritoDeCompra.Crear(usuarioId);
+            _repositorioCarrito.Crear(carrito);
+
             await _unitOfWork.SaveChangesAsync(cancellationToken);
+
 
             return Unit.Value;
         }
