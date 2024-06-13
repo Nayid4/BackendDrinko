@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.CarritosDeCompras.AgregarProducto
+namespace Application.Pedidos.AgregarProducto
 {
-    public record AgregarProductoCommand(
-        Guid IdCarrito,
+    public record AgregarProductoPedidoCommand(
+        Guid IdPedido,
         Guid ProductoId,
         string imagen,
         int Cantidad,

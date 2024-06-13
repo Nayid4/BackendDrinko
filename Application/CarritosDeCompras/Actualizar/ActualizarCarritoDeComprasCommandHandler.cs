@@ -35,6 +35,7 @@ namespace Application.CarritosDeCompras.Actualizar
                     new ProductoCarritoId(Guid.NewGuid()),
                     new CarritoDeComprasId(request.Id),
                     new ProductoId(p.ProductoId),
+                    p.Imagen,
                     p.Cantidad,
                     p.Precio))
                 .ToHashSet();
@@ -42,7 +43,7 @@ namespace Application.CarritosDeCompras.Actualizar
             var carritoDeCompras = CarritoDeCompra.Crear(new UsuarioId(request.UsuarioId));
             foreach (var productoCarrito in productosCarrito)
             {
-                carritoDeCompras.AgregarProducto(productoCarrito.ProductoId, productoCarrito.Cantidad, productoCarrito.Precio);
+                carritoDeCompras.AgregarProducto(productoCarrito.ProductoId, productoCarrito.Imagen, productoCarrito.Cantidad, productoCarrito.Precio);
             }
 
 

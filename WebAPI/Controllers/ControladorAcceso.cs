@@ -34,9 +34,15 @@ namespace WebAPI.Controllers
             var resultadoIniciarSesion = await _mediator.Send(command);
 
             return resultadoIniciarSesion.Match<IActionResult>(
-                iniciarSesionResult => Ok(new { Token = iniciarSesionResult.Token }),
+                iniciarSesionResult => Ok(new {
+                    UsuarioId = iniciarSesionResult.Id,
+                    NombreCompleto = iniciarSesionResult.NombreCompre,
+                    Rol = iniciarSesionResult.Rol,
+                    Correo = iniciarSesionResult.Correo,
+                    Token = iniciarSesionResult.Token
+                }),
                 errors => Unauthorized(errors.First().Description)
-            );
+            ); 
         }
     }
 }

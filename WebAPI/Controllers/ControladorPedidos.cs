@@ -8,23 +8,24 @@ using Application.CarritosDeCompras.ListarPorIdDeUsuario;
 using Application.CarritosDeCompras.ListarTodos;
 using Application.CarritosDeCompras.Vaciar;
 using Application.CarritosDeCompras.VerificarExistencia;
-using Application.Productos.Actualizar;
-using Application.Productos.Crear;
-using Application.Productos.Eliminar;
-using Application.Productos.ListarPorId;
-using Application.Productos.ListarTodos;
-using Application.Productos.VerificarExistencia;
-using Microsoft.AspNetCore.Authorization;
+using Application.Pedidos.Actualizar;
+using Application.Pedidos.AgregarProducto;
+using Application.Pedidos.Crear;
+using Application.Pedidos.Eliminar;
+using Application.Pedidos.EliminarProducto;
+using Application.Pedidos.ListarPorId;
+using Application.Pedidos.ListarPorIdDeUsuario;
+using Application.Pedidos.ListarTodos;
+using Application.Pedidos.VerificarExistencia;
 
 namespace WebAPI.Controllers
 {
-    [Route("carrito-de-compras")]
-    //[Authorize]
-    public class ControladorCarritoDeCompras : ApiController
+    [Route("pedidos")]
+    public class ControladorPedidos : ApiController
     {
         private readonly ISender _mediator;
 
-        public ControladorCarritoDeCompras(ISender mediator)
+        public ControladorPedidos(ISender mediator)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
@@ -32,10 +33,10 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> ListarTodos()
         {
-            var resultado = await _mediator.Send(new ListarTodosLosCarritosDeComprasQuery());
+            var resultado = await _mediator.Send(new ListarTodosLosPedidosQuery());
 
             return resultado.Match(
-                carritos => Ok(carritos),
+                pedidos => Ok(pedidos),
                 errors => Problem(errors)
             );
         }
@@ -43,21 +44,21 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> ListarPorId(Guid id)
         {
-            var resultado = await _mediator.Send(new ListarCarritoDeComprasPorIdQuery(id));
+            var resultado = await _mediator.Send(new ListarPedidoPorIdQuery(id));
 
             return resultado.Match(
-                producto => Ok(producto),
+                pedido => Ok(pedido),
                 errors => Problem(errors)
             );
         }
 
-        [HttpGet("carrito-usuario/{id}")]
+        [HttpGet("pedidos-usuario/{id}")]
         public async Task<IActionResult> ListarPorIdDeUsuario(Guid id)
         {
-            var resultado = await _mediator.Send(new ListarCarritoDeComprasPorIdDeUsuarioQuery(id));
+            var resultado = await _mediator.Send(new ListarPedidosPorIdDeUsuarioQuery(id));
 
             return resultado.Match(
-                producto => Ok(producto),
+                pedidos => Ok(pedidos),
                 errors => Problem(errors)
             );
         }
@@ -65,7 +66,7 @@ namespace WebAPI.Controllers
         [HttpGet("verificar/{id}")]
         public async Task<IActionResult> VerificarExistencia(Guid id)
         {
-            var resultado = await _mediator.Send(new VerificarExistenciaCarritoDeComprasQuery(id));
+            var resultado = await _mediator.Send(new VerificarExistenciaPedidoQuery(id));
 
             return resultado.Match(
                 existe => Ok(existe),
@@ -74,34 +75,34 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("agregar-producto")]
-        public async Task<IActionResult> AgregarProducto([FromBody] AgregarProductoCommand command)
+        public async Task<IActionResult> AgregarProducto([FromBody] AgregarProductoPedidoCommand command)
         {
             var resultado = await _mediator.Send(command);
 
             return resultado.Match(
-                carritoId => Ok(carritoId),
+                pedidoId => Ok(pedidoId),
                 errors => Problem(errors)
             );
         }
 
         [HttpPost("eliminar-producto")]
-        public async Task<IActionResult> EliminarProducto([FromBody] EliminarProductoDeCarritoDeComprasCommand command)
+        public async Task<IActionResult> EliminarProducto([FromBody] EliminarProductoDePedidoCommand command)
         {
             var resultado = await _mediator.Send(command);
 
             return resultado.Match(
-                carritoId => Ok(carritoId),
+                pedidoId => Ok(pedidoId),
                 errors => Problem(errors)
             );
         }
 
         [HttpPost]
-        public async Task<IActionResult> Crear([FromBody] CrearCarritoDeComprasCommand command)
+        public async Task<IActionResult> Crear([FromBody] CrearPedidoCommand command)
         {
             var resultado = await _mediator.Send(command);
 
             return resultado.Match(
-                carritoId => Ok(carritoId),
+                pedidoId => Ok(pedidoId),
                 errors => Problem(errors)
             );
         }
@@ -109,11 +110,11 @@ namespace WebAPI.Controllers
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Actualizar(Guid id, [FromBody] ActualizarCarritoDeComprasCommand command)
+        public async Task<IActionResult> Actualizar(Guid id, [FromBody] ActualizarPedidoCommand command)
         {
             if (command.Id != id)
             {
-                return BadRequest("El ID del carrito de compras en la URL no coincide con el ID en el cuerpo de la solicitud.");
+                return BadRequest("El ID del pedido en la URL no coincide con el ID en el cuerpo de la solicitud.");
             }
 
             var resultado = await _mediator.Send(command);
@@ -127,7 +128,7 @@ namespace WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Eliminar(Guid id)
         {
-            var resultado = await _mediator.Send(new EliminarCarritoDeComprasCommand(id));
+            var resultado = await _mediator.Send(new EliminarPedidoCommand(id));
 
             return resultado.Match(
                 _ => NoContent(),
@@ -135,17 +136,6 @@ namespace WebAPI.Controllers
             );
         }
 
-        [HttpDelete("vaciar/{id}")]
-        public async Task<IActionResult> Vaciar(Guid id)
-        {
-            var resultado = await _mediator.Send(new VaciarCarritoDeComprasCommand(id));
-
-            return resultado.Match(
-                _ => NoContent(),
-                errors => Problem(errors)
-            );
-        }
-
-
+        
     }
 }

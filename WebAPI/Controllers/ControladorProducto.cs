@@ -7,10 +7,12 @@ using Application.Productos.VerificarExistencia;
 using Application.Usuarios.Crear;
 using Application.Usuarios.ListarPorId;
 using Application.Usuarios.ListarTodos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers
 {
     [Route("productos")]
+    [AllowAnonymous]
     public class ControladorProducto : ApiController
     {
         private readonly ISender _mediator;

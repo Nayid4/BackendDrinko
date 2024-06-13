@@ -31,6 +31,7 @@ namespace Application.CarritosDeCompras.ListarPorIdDeUsuario
             var productos = carrito.ProductoCarritos.Select(p => new ProductoCarritoResponse(
                 p.Id.Valor,
                 p.ProductoId.Valor,
+                p.Imagen,
                 p.Cantidad,
                 p.Precio
                 )).ToList();

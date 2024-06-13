@@ -30,7 +30,7 @@ namespace Application.Usuarios.IniciarSesion
             }
 
             var token = _utilidades.generarJWT(usuario);
-            return new IniciarSesionResult(token);
+            return new IniciarSesionResult(usuario.Id.Valor, usuario.Nombre + " " + usuario.Apellido, usuario.Rol.ToString(), usuario.Correo,token);
         }
     }
 }

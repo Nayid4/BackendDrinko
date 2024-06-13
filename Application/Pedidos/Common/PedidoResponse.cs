@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Application.Productos.Common;
 
-namespace Application.CarritoDeCompras.Common
+namespace Application.Pedidos.Common
 {
-    public record CarritoDeComprasResponse(
+    public record PedidoResponse(
         Guid Id,
         Guid UsuarioId,
-        IReadOnlyList<ProductoCarritoResponse> Productos
+        Guid DireccionId,
+        IReadOnlyList<ProductoPedidoResponse> Productos
     );
 
-    public record ProductoCarritoResponse(
+    public record ProductoPedidoResponse(
         Guid Id,
         Guid ProductoId,
         string Imagen,

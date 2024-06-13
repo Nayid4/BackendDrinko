@@ -31,6 +31,7 @@ namespace Application.CarritosDeCompras.ListarTodos
                 carrito.ProductoCarritos.Select(producto => new ProductoCarritoResponse(
                     producto.Id.Valor,
                     producto.CarritoDeComprasId.Valor,
+                    producto.Imagen,
                     producto.Cantidad,
                     producto.Precio
                     )).ToList())).ToList();

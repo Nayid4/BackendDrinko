@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Application.CarritosDeCompras.EliminarProducto
 {
-    public record EliminarProductoCommand(
-        Guid Id,
-        Guid IdCarrito
+    public record EliminarProductoDeCarritoDeComprasCommand(
+        Guid CarritoId,
+        Guid ProductoCarritoId
         ) : IRequest<ErrorOr<bool>>;
 }

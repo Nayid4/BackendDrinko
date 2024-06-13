@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.CarritosDeCompras.Eliminar
+namespace Application.Pedidos.Eliminar
 {
-    public record EliminarCarritoDeComprasCommand(Guid CarritoId) : IRequest<ErrorOr<bool>>;
+    public record EliminarPedidoCommand(Guid PedidoId) : IRequest<ErrorOr<bool>>;
 }

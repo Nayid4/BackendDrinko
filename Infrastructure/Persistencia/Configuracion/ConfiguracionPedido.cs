@@ -1,4 +1,5 @@
-﻿using Domain.Pedidos;
+﻿using Domain.Direcciones;
+using Domain.Pedidos;
 using Domain.Usuarios;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -18,6 +19,11 @@ namespace Infrastructure.Persistencia.Configuracion
             builder.Property(p => p.UsuarioId).HasConversion(
                 usuarioId => usuarioId.Valor,
                 valor => new UsuarioId(valor));
+
+            builder.Property(p => p.DireccionId).HasConversion(
+                direccionId => direccionId.Valor,
+                valor => new DireccionId(valor));
+
 
             // Relación uno a muchos con ProductoPedido
             builder.HasMany(p => p.ProductosPedido)

@@ -8,6 +8,7 @@ namespace Domain.CarritoDeCompras
         public ProductoCarritoId Id { get; private set; }
         public CarritoDeComprasId CarritoDeComprasId { get; private set; }
         public ProductoId ProductoId { get; private set; }
+        public string Imagen { get; private set; } = string.Empty;
         public int Cantidad { get; private set; }
         public decimal Precio { get; private set; }
 
@@ -15,11 +16,12 @@ namespace Domain.CarritoDeCompras
         {
         }
 
-        public ProductoCarrito(ProductoCarritoId id, CarritoDeComprasId carritoDeComprasId, ProductoId productoId, int cantidad, decimal precio)
+        public ProductoCarrito(ProductoCarritoId id, CarritoDeComprasId carritoDeComprasId, ProductoId productoId, string imagn, int cantidad, decimal precio)
         {
             Id = id ?? throw new ArgumentNullException(nameof(id));
             CarritoDeComprasId = carritoDeComprasId ?? throw new ArgumentNullException(nameof(carritoDeComprasId));
             ProductoId = productoId ?? throw new ArgumentNullException(nameof(productoId));
+            Imagen = imagn ?? throw new ArgumentNullException(nameof(imagn));
             Cantidad = cantidad > 0 ? cantidad : throw new ArgumentOutOfRangeException(nameof(cantidad));
             Precio = precio >= 0 ? precio : throw new ArgumentOutOfRangeException(nameof(precio));
         }

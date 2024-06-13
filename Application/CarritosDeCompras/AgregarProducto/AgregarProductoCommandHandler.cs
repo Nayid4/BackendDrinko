@@ -29,7 +29,7 @@ namespace Application.CarritosDeCompras.AgregarProducto
                 return Error.NotFound("CarritoDeCompras.NoEncontrado", "No se encontró el carrito de compras.");
             }
 
-            carritoDeCompra.AgregarProducto(new ProductoId(command.ProductoId), command.Cantidad, command.Precio);
+            carritoDeCompra.AgregarProducto(new ProductoId(command.ProductoId), command.imagen, command.Cantidad, command.Precio);
 
             _repositorioCarritoDeCompras.Actualizar(carritoDeCompra);
 

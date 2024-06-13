@@ -11,9 +11,9 @@ namespace Domain.CarritoDeCompras
     {
         private readonly HashSet<ProductoCarrito> _productosCarrito = new HashSet<ProductoCarrito>();
 
-        public CarritoDeComprasId Id { get; private set;  }
+        public CarritoDeComprasId Id { get; private set; }
         public UsuarioId UsuarioId { get; private set; }
-        public IReadOnlyCollection<ProductoCarrito> ProductoCarritos => _productosCarrito.ToList().AsReadOnly();
+        public ICollection<ProductoCarrito> ProductoCarritos => _productosCarrito;
 
         private CarritoDeCompra(CarritoDeComprasId id, UsuarioId usuarioId)
         {
@@ -29,7 +29,7 @@ namespace Domain.CarritoDeCompras
             return new CarritoDeCompra(new CarritoDeComprasId(Guid.NewGuid()), usuario);
         }
 
-        public void AgregarProducto(ProductoId producto, int cantidad, decimal precio)
+        public void AgregarProducto(ProductoId producto, string imagen, int cantidad, decimal precio)
         {
             if (producto == null)
                 throw new ArgumentNullException(nameof(producto));
@@ -37,7 +37,7 @@ namespace Domain.CarritoDeCompras
             if (cantidad <= 0)
                 throw new ArgumentOutOfRangeException(nameof(cantidad), "La cantidad debe ser mayor que cero.");
 
-            var productoCarrito = new ProductoCarrito(new ProductoCarritoId(Guid.NewGuid()),Id, producto, cantidad, precio);
+            var productoCarrito = new ProductoCarrito(new ProductoCarritoId(Guid.NewGuid()), Id, producto, imagen, cantidad, precio);
             _productosCarrito.Add(productoCarrito);
         }
 
@@ -57,5 +57,11 @@ namespace Domain.CarritoDeCompras
             productoCarrito.ActualizarCantidad(nuevaCantidad);
             return true;
         }
+
+        public void Vaciar()
+        {
+            _productosCarrito.Clear();
+        }
+
     }
 }

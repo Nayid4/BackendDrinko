@@ -23,6 +23,9 @@ namespace Infrastructure.Persistencia.Configuracion
                 productoId => productoId.Valor,
                 valor => new ProductoId(valor));
 
+            builder.Property(pp => pp.Imagen)
+                .IsRequired();
+
             builder.Property(pp => pp.Cantidad)
                 .IsRequired();
 

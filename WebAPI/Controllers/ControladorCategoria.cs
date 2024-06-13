@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace WebAPI.Controllers
 {
     [Route("categorias")]
-    [Authorize]
+    //[Authorize]
     public class ControladorCategoria : ApiController
     {
         private readonly ISender _mediator;
