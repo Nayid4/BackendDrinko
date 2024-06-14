@@ -1,4 +1,5 @@
 ﻿using Application.Usuarios.Actualizar;
+using Application.Usuarios.AgregarDireccion;
 using Application.Usuarios.Crear;
 using Application.Usuarios.Eliminar;
 using Application.Usuarios.ListarPorId;
@@ -55,6 +56,19 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Crear([FromBody] CrearUsuarioCommand command)
+        {
+            var resultadoCrear = await _mediator.Send(command);
+
+
+
+            return resultadoCrear.Match(
+                usuarioId => Ok(usuarioId),
+                errors => Problem(errors)
+            );
+        }
+
+        [HttpPost("agregar-direccion")]
+        public async Task<IActionResult> AgregarDireccion([FromBody] AgregarDireccionUsuarioCommand command)
         {
             var resultadoCrear = await _mediator.Send(command);
 

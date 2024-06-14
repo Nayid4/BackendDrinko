@@ -1,4 +1,5 @@
-﻿using Domain.Direcciones;
+﻿using Application.Usuarios.Common;
+using Domain.Direcciones;
 using Domain.Usuarios;
 using MediatR;
 using System;
@@ -14,5 +15,5 @@ namespace Application.Usuarios.Actualizar
         string Clave,
         string NumeroDeTelefono,
         RolUsuario Rol, // Agregar el campo Rol
-        HashSet<Direccion> Direcciones) : IRequest<ErrorOr<Unit>>;
+        HashSet<DireccionResponse> Direcciones) : IRequest<ErrorOr<Unit>>;
 }
